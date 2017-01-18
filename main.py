@@ -5,8 +5,7 @@ import sqlite3
 # Initialize the Flask application
 app = Flask(__name__)
 
-app.secret_key = 'allyourbaseisbelongtous'
-
+app.secret_key = 'allyourbasearebelongtous'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -14,7 +13,7 @@ def index():
         _longurl = request.form['longurl']
 
         if _longurl:
-            conn = sqlite3.connect('shortener_database.sqlite3')
+            conn = sqlite3.connect('/var/www/FlaskApps/UrlShortener/shortener_database.sqlite3')
             cur = conn.cursor()
 
             # Get tuple index of table
@@ -29,14 +28,14 @@ def index():
             cur.execute('INSERT INTO URLtable (tableindex, shorturl, longurl) VALUES (?, ?, ?)', (ti, su, _longurl))
             conn.commit()
 
-            flash('Your short URL: http://127.0.0.1:5000/%s' % (su))
+            flash('Your short URL: 52.14.45.104/%s' % (su))
             return redirect(url_for('index'))
 
     return render_template('index.html')
 
 @app.route('/<su>')
 def fetchlongurl(su):
-    conn = sqlite3.connect('shortener_database.sqlite3')
+    conn = sqlite3.connect('/var/www/FlaskApps/UrlShortener/shortener_database.sqlite3')
     cur = conn.cursor()
     cur.execute('SELECT longurl FROM URLtable WHERE shorturl=?', (su, ))
     url = cur.fetchone()
@@ -45,7 +44,10 @@ def fetchlongurl(su):
         result = ''
         for i in url:
             result = i
-        return redirect(result)
+        if 'http://' in result or 'https://' in result:
+            return redirect(result)
+        else:
+            return redirect('http://%s' % (result))
     else:
         flash('Invalid Short URL!')
         return redirect(url_for('index'))

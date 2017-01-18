@@ -10,7 +10,7 @@
 </head>
 
 <body>
-	<div class="container">
+	<div class="container" style="margin-top: 5cm">
 		<center>
 		<form class="form-signin" action="/" method="post">
 			<h2 class="form-signin-heading">URL Shortener</h2>
@@ -19,7 +19,7 @@
             {% if msgs %}
                 {%- for msg in msgs %}
                 <center>
-                    <div class="alert alert-danger">
+                    <div class="alert alert-success">
                         {{ msg }}
                     </div>
                 </center>
@@ -27,7 +27,7 @@
             {% endif %}
         {% endwith %}
 
-        <input type="url" name="longurl" id="longurl" class="form-control" placeholder="URL" required>
+        <input type="text" name="longurl" id="longurl" class="form-control" placeholder="URL" required>
 
         <p></p>
 
