@@ -1,4 +1,4 @@
-#TinyURL Web App 
+# TinyURL Web App 
 
 This is a simplified version of TinyURL using Flask, Bootstrap, and SQLite, which allowed shortening a URL into a TinyURL and retrieving the URL associated with a TinyURL.
 
